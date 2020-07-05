@@ -1,0 +1,35 @@
+{
+  "name": "use-accordion",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "parcel ./test/index.html --out-dir ./build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gorimori/useAccordion.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gorimori/useAccordion/issues"
+  },
+  "homepage": "https://github.com/gorimori/useAccordion#readme",
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.41",
+    "@types/react-dom": "^16.9.8",
+    "parcel": "^1.12.4",
+    "typescript": "^3.9.6"
+  },
+  "browserslist": [
+    "last 1 Chrome versions",
+    "last 1 Firefox versions"
+  ]
+}
