@@ -6,11 +6,11 @@ import {
 } from "./util";
 import { State, defaultInitialState, reducer, OpenAction } from "./state";
 
-export const useAccordion = (
+export const useAccordion = <T extends HTMLElement>(
   initialState: State = defaultInitialState
-): [React.RefObject<HTMLElement>, React.Dispatch<OpenAction>, State] => {
+): [React.RefObject<T>, React.Dispatch<OpenAction>, State] => {
   const mountedRef = React.useRef(false);
-  const containerRef = React.useRef<HTMLDivElement>(null);
+  const containerRef = React.useRef<T>(null);
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
   React.useEffect(() => {

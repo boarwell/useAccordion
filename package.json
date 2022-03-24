@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
-    "test": "parcel ./test/index.html --out-dir ./build"
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
@@ -18,11 +17,6 @@
     "@ladle/react": "^0.8.5",
     "@types/react": "^17.0.35",
     "@types/react-dom": "^17.0.11",
-    "parcel": "^2.0.1",
     "typescript": "^4.4.4"
-  },
-  "browserslist": [
-    "last 1 Chrome versions",
-    "last 1 Firefox versions"
-  ]
+  }
 }
