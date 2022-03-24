@@ -3,7 +3,7 @@ import { useAccordion } from "./main.jsx";
 import "./Example.stories.css";
 
 export const Example = () => {
-  const [ref, dispatch] = useAccordion();
+  const [ref, dispatch] = useAccordion<HTMLDivElement>();
   const toggle = () => {
     dispatch({ type: "TOGGLE" });
   };

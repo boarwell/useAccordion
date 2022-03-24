@@ -1,5 +1,5 @@
 const sleep = (ms: number) => {
-  return new Promise((res) => {
+  return new Promise<void>((res) => {
     window.setTimeout(() => {
       res();
     }, ms);
@@ -27,7 +27,7 @@ export const waitForTransition = (
     return Promise.resolve();
   }
 
-  const transitionend = new Promise((res) => {
+  const transitionend = new Promise<void>((res) => {
     el.addEventListener("transitionend", () => res(), { once: true });
   });
 
@@ -39,7 +39,7 @@ export const waitForTransition = (
 };
 
 export const waitForNextAnimationFrame = () => {
-  return new Promise((res) => {
+  return new Promise<void>((res) => {
     window.requestAnimationFrame(() => res());
   });
 };
