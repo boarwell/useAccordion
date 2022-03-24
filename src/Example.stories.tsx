@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useAccordion } from "./main.jsx";
 import "./Example.stories.css";
 
