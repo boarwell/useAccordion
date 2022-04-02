@@ -50,17 +50,12 @@ export const waitForNextAnimationFrame = () => {
   });
 };
 
-export const setHeight = (el: HTMLElement | null, height: string) => {
-  if (!el) {
-    return;
-  }
-
+export const setHeight = (el: HTMLElement, height: string) => {
   el.style.height = height;
 };
 
 export const setHeightTransition = async (el: HTMLElement, height: string) => {
   const transition = waitForTransition(el);
-  el.style.height = height;
+  setHeight(el, height);
   await transition;
-  await waitForNextAnimationFrame();
 };
