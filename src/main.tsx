@@ -4,6 +4,8 @@ import {
   useRef,
   useReducer,
   useEffect,
+  useState,
+  useCallback,
 } from "react";
 
 import {
@@ -62,4 +64,48 @@ export const useAccordion = <T extends HTMLElement>(
   }, [state.isOpen]);
 
   return [containerRef, dispatch, state];
+};
+
+export const useAccordionX = <T extends HTMLElement>(
+  initialState: boolean = false
+) => {
+  const containerRef = useRef<T>(null);
+  const [isOpen, setIsOpen] = useState(initialState);
+  const busy = useRef(false);
+
+  const open = useCallback(async () => {
+    if (isOpen || busy.current || containerRef.current === null) {
+      return;
+    }
+    busy.current = true;
+    const transition = waitForTransition(containerRef.current);
+    setHeight(containerRef.current, `${containerRef.current.scrollHeight}px`);
+    await transition;
+    await waitForNextAnimationFrame();
+    setHeight(containerRef.current, "auto");
+    containerRef.current.setAttribute("aria-hidden", "true");
+    setIsOpen(true);
+    busy.current = false;
+  }, [isOpen]);
+
+  const close = useCallback(async () => {
+    if (!isOpen || busy.current || containerRef.current === null) {
+      return;
+    }
+    busy.current = true;
+    setHeight(containerRef.current, `${containerRef.current.scrollHeight}px`);
+    await waitForNextAnimationFrame();
+    const transition = waitForTransition(containerRef.current);
+    setHeight(containerRef.current, "0");
+    containerRef.current.setAttribute("aria-hidden", "false");
+    await transition;
+    setIsOpen(false);
+    busy.current = false;
+  }, [isOpen]);
+
+  const toggle = useCallback(async () => {
+    isOpen ? await close() : await open();
+  }, [isOpen]);
+
+  return { containerRef, isOpen, open, close, toggle };
 };

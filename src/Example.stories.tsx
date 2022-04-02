@@ -1,4 +1,4 @@
-import { useAccordion } from "./main.jsx";
+import { useAccordion, useAccordionX } from "./main.jsx";
 import "./Example.stories.css";
 
 export const Example = () => {
@@ -15,6 +15,21 @@ export const Example = () => {
       <button type="button" onClick={toggle}>
         Toggle
       </button>
+    </section>
+  );
+};
+
+export const ExampleX = () => {
+  const { containerRef, toggle } = useAccordionX<HTMLDivElement>();
+
+  return (
+    <section>
+      <button type="button" onClick={toggle}>
+        Toggle
+      </button>
+      <div ref={containerRef} className="content">
+        <div style={{ height: "500px", background: "#fafafa" }}>Content</div>
+      </div>
     </section>
   );
 };
