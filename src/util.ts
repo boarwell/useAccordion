@@ -57,3 +57,10 @@ export const setHeight = (el: HTMLElement | null, height: string) => {
 
   el.style.height = height;
 };
+
+export const setHeightTransition = async (el: HTMLElement, height: string) => {
+  const transition = waitForTransition(el);
+  el.style.height = height;
+  await transition;
+  await waitForNextAnimationFrame();
+};

@@ -10,6 +10,7 @@ import {
 
 import {
   setHeight,
+  setHeightTransition,
   waitForTransition,
   waitForNextAnimationFrame,
 } from "./util";
@@ -78,12 +79,11 @@ export const useAccordionX = <T extends HTMLElement>(
       return;
     }
     busy.current = true;
-    const transition = waitForTransition(containerRef.current);
-    setHeight(containerRef.current, `${containerRef.current.scrollHeight}px`);
-    await transition;
-    await waitForNextAnimationFrame();
+    await setHeightTransition(
+      containerRef.current,
+      `${containerRef.current.scrollHeight}px`
+    );
     setHeight(containerRef.current, "auto");
-    containerRef.current.setAttribute("aria-hidden", "true");
     setIsOpen(true);
     busy.current = false;
   }, [isOpen]);
@@ -95,10 +95,7 @@ export const useAccordionX = <T extends HTMLElement>(
     busy.current = true;
     setHeight(containerRef.current, `${containerRef.current.scrollHeight}px`);
     await waitForNextAnimationFrame();
-    const transition = waitForTransition(containerRef.current);
-    setHeight(containerRef.current, "0");
-    containerRef.current.setAttribute("aria-hidden", "false");
-    await transition;
+    await setHeightTransition(containerRef.current, "0");
     setIsOpen(false);
     busy.current = false;
   }, [isOpen]);

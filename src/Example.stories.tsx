@@ -21,6 +21,8 @@ export const Example = () => {
 
 export const ExampleX = () => {
   const { containerRef, toggle } = useAccordionX<HTMLDivElement>();
+  const { containerRef: nestedRef, toggle: nestedToggle } =
+    useAccordionX<HTMLDivElement>();
 
   return (
     <section>
@@ -28,7 +30,18 @@ export const ExampleX = () => {
         Toggle
       </button>
       <div ref={containerRef} className="content">
-        <div style={{ height: "500px", background: "#fafafa" }}>Content</div>
+        <div style={{ height: "500px", background: "#fafafa" }}>
+          Content
+          <button type="button" onClick={nestedToggle}>
+            Nested Toggle
+          </button>
+        </div>
+
+        <div ref={nestedRef} className="content">
+          <div style={{ height: "500px", background: "#f0f0f0" }}>
+            Nested Content
+          </div>
+        </div>
       </div>
     </section>
   );
