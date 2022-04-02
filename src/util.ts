@@ -11,10 +11,16 @@ const transitionDurationPredicates: Array<(duration: number) => boolean> = [
   (duration) => duration > 0,
 ];
 
+type TransitionOption = {
+  timeoutMS?: number;
+  signal?: AbortSignal;
+};
+
 export const waitForTransition = (
   el: HTMLElement,
-  timeoutMS?: number
+  option?: TransitionOption
 ): Promise<unknown> => {
+  const { timeoutMS, signal } = option ?? {};
   const computedStyle = window.getComputedStyle(el);
   const rawTransitionDuration = computedStyle.transitionDuration;
   const parsedTransitionDuration = parseFloat(rawTransitionDuration);
@@ -28,7 +34,7 @@ export const waitForTransition = (
   }
 
   const transitionend = new Promise<void>((res) => {
-    el.addEventListener("transitionend", () => res(), { once: true });
+    el.addEventListener("transitionend", () => res(), { once: true, signal });
   });
 
   if (timeoutMS === undefined) {
