@@ -1,4 +1,11 @@
-import React from "react";
+import {
+  type RefObject,
+  type Dispatch,
+  useRef,
+  useReducer,
+  useEffect,
+} from "react";
+
 import {
   setHeight,
   waitForTransition,
@@ -8,12 +15,12 @@ import { State, defaultInitialState, reducer, OpenAction } from "./state";
 
 export const useAccordion = <T extends HTMLElement>(
   initialState: State = defaultInitialState
-): [React.RefObject<T>, React.Dispatch<OpenAction>, State] => {
-  const mountedRef = React.useRef(false);
-  const containerRef = React.useRef<T>(null);
-  const [state, dispatch] = React.useReducer(reducer, initialState);
+): [RefObject<T>, Dispatch<OpenAction>, State] => {
+  const mountedRef = useRef(false);
+  const containerRef = useRef<T>(null);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!mountedRef.current) {
       mountedRef.current = true;
       return;
